@@ -587,7 +587,15 @@ BrokkrWrapper::BrokkrWrapper(QWidget* parent) : QWidget(parent) {
   footerLabel->setFont(footerFont);
   footerLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
+    auto* telegramLabel = new QLabel(
+      R"(<a href="https://t.me/BrokkrCommunity" style="color: #4c8ddc;">Telegram Community</a>)", this);
+    telegramLabel->setOpenExternalLinks(true);
+    telegramLabel->setFont(footerFont);
+    telegramLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+
   bottomLayout->addWidget(footerLabel, 0, Qt::AlignBottom);
+    bottomLayout->addSpacing(14);
+    bottomLayout->addWidget(telegramLabel, 0, Qt::AlignBottom);
   bottomLayout->addStretch();
 
   auto* resetColWidget = new QWidget(this);
