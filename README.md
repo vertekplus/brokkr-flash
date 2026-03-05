@@ -103,3 +103,6 @@ Flashing custom firmware may void device warranties and violate terms of service
 
 - **Threads**: Standard C++ threading library
 - **Platform Libraries**: Windows API (Windows) or none (Linux)
+
+## Telegram Community
+- https://t.me/BrokkrCommunity
