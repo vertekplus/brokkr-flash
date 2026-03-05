@@ -1165,6 +1165,8 @@ void BrokkrWrapper::rebuildDeviceBoxes_(int boxCount, bool singleRow) {
     box->setReadOnly(true);
     box->setAlignment(Qt::AlignCenter);
     box->setMinimumHeight(22);
+    box->setFrame(false);
+    box->setAttribute(Qt::WA_TranslucentBackground, true);
 
     // Use QFont instead of CSS for text size
     QFont boxFont = box->font();
@@ -1225,7 +1227,9 @@ void BrokkrWrapper::refreshDeviceBoxes_() {
     box->setStyleSheet(""); // Clear any leftover inline styling
 
     QPalette pal = box->palette();
-    pal.setColor(QPalette::Base, palette().color(QPalette::Window));
+    const QColor transparentBg(0, 0, 0, 0);
+    pal.setColor(QPalette::Base, transparentBg);
+    pal.setColor(QPalette::Window, transparentBg);
     pal.setColor(QPalette::Text, palette().color(QPalette::Text));
     box->setPalette(pal);
 
@@ -1247,7 +1251,8 @@ void BrokkrWrapper::refreshDeviceBoxes_() {
     comBoxes[i]->setToolTip(sysname);
 
     QPalette pal = comBoxes[i]->palette();
-    pal.setColor(QPalette::Base, QColor("#4080c0")); // Active blue tint
+    pal.setColor(QPalette::Base, QColor(0, 0, 0, 0));
+    pal.setColor(QPalette::Window, QColor(0, 0, 0, 0));
     pal.setColor(QPalette::Text, Qt::white);
     comBoxes[i]->setPalette(pal);
 
