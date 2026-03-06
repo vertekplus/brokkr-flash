@@ -360,9 +360,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p portable/brokkr
-          cp build/brokkr.exe portable/brokkr/
-          "$QT_ROOT_DIR/bin/windeployqt.exe" portable/brokkr/brokkr.exe
+          rm -rf portable
+          cmake --install build --prefix portable/brokkr --config ${{ matrix.build_type }}
           cd portable
           7z a -tzip ../Brokkr-windows-${{ matrix.artifact_arch }}${{ matrix.suffix }}.zip brokkr/
 

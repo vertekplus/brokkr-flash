@@ -304,17 +304,27 @@ if (MSVC)
     target_compile_options(brokkr PRIVATE /Zc:__cplusplus)
 endif()
 
+set(BROKKR_WINDOWS_ARM64 OFF)
+if(WIN32 AND (CMAKE_SYSTEM_PROCESSOR MATCHES "^(ARM64|AARCH64|arm64|aarch64)$"
+   OR CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64"))
+    set(BROKKR_WINDOWS_ARM64 ON)
+endif()
+
 if(WIN32)
-    get_target_property(_qmake_exec Qt6::qmake IMPORTED_LOCATION)
-    get_filename_component(_qt_bin_dir "${_qmake_exec}" DIRECTORY)
-    find_program(WINDEPLOYQT_EXEC windeployqt HINTS "${_qt_bin_dir}")
-    if(WINDEPLOYQT_EXEC)
+    if(BROKKR_WINDOWS_ARM64)
+        message(STATUS "Skipping post-build windeployqt on Windows ARM64; install-time Qt deployment will be used instead.")
+    else()
+        get_target_property(_qmake_exec Qt6::qmake IMPORTED_LOCATION)
+        get_filename_component(_qt_bin_dir "${_qmake_exec}" DIRECTORY)
+        find_program(WINDEPLOYQT_EXEC windeployqt HINTS "${_qt_bin_dir}")
+    endif()
+    if(NOT BROKKR_WINDOWS_ARM64 AND WINDEPLOYQT_EXEC)
         add_custom_command(TARGET brokkr POST_BUILD
             COMMAND "${WINDEPLOYQT_EXEC}"
             ARGS --no-translations --compiler-runtime "$<TARGET_FILE:brokkr>"
             COMMENT "Running windeployqt to deploy Qt libraries..."
         )
-    else()
+    elseif(NOT BROKKR_WINDOWS_ARM64)
         message(WARNING "windeployqt not found! You will need to copy DLLs manually.")
     endif()
 endif()
