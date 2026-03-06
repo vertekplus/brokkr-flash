@@ -423,7 +423,10 @@ if(WIN32)
   set(CPACK_NSIS_INSTALLED_ICON_NAME "bin/brokkr.exe")
 
   # Bundle VC++ Redistributable
-  if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(ARM64|AARCH64|arm64|aarch64)$"
+         OR CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64")
+        set(_vcredist_name "vc_redist.arm64.exe")
+    elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(_vcredist_name "vc_redist.x64.exe")
   else()
     set(_vcredist_name "vc_redist.x86.exe")
