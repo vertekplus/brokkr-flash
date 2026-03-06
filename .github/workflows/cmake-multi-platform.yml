@@ -105,7 +105,7 @@ jobs:
             -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR"
 
       - name: Build
-        run: cmake --build build --parallel 2
+        run: cmake --build build --parallel
 
       - name: Stage AppDir
         run: |
@@ -212,7 +212,7 @@ jobs:
             -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR"
 
       - name: Build
-        run: cmake --build build --parallel 2
+        run: cmake --build build --parallel
 
       - name: Stage AppDir
         run: |
@@ -341,7 +341,7 @@ jobs:
 
       - name: Build
         shell: bash
-        run: cmake --build build --parallel 2
+        run: cmake --build build --parallel
 
       - name: Package (NSIS installer)
         shell: bash
@@ -427,7 +427,7 @@ jobs:
           sed -i '' 's/ -framework AGL//g; s/-framework AGL //g; s/-framework AGL//g' build/build.ninja
 
       - name: Build
-        run: cmake --build build --parallel 3
+        run: cmake --build build --parallel
 
       - name: Deploy + Zip
         if: matrix.build_type == 'Release'
@@ -502,7 +502,7 @@ jobs:
           sed -i '' 's/ -framework AGL//g; s/-framework AGL //g; s/-framework AGL//g' build/build.ninja
 
       - name: Build
-        run: cmake --build build --parallel 3
+        run: cmake --build build --parallel
         
       - name: Deploy + Zip
         if: matrix.build_type == 'Release'
