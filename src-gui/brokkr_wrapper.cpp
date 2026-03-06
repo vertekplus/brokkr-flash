@@ -1161,10 +1161,15 @@ void BrokkrWrapper::rebuildDeviceBoxes_(int boxCount, bool singleRow) {
 
     auto* sq = new DeviceSquare(cell);
 
-    auto* box = new QLineEdit(cell);
-    box->setReadOnly(true);
+    auto* box = new QLabel(cell);
     box->setAlignment(Qt::AlignCenter);
     box->setMinimumHeight(22);
+    box->setAutoFillBackground(true);
+    box->setBackgroundRole(QPalette::Base);
+    box->setForegroundRole(QPalette::Text);
+    box->setFrameShape(QFrame::StyledPanel);
+    box->setFrameShadow(QFrame::Sunken);
+    box->setMargin(1);
 
     // Use QFont instead of CSS for text size
     QFont boxFont = box->font();
@@ -1234,7 +1239,7 @@ void BrokkrWrapper::refreshDeviceBoxes_() {
     box->setFont(f);
   }
 
-  auto elideFor = [&](QLineEdit* box, const QString& s) {
+  auto elideFor = [&](QLabel* box, const QString& s) {
     const int w = std::max(0, box->width() - 10);
     return box->fontMetrics().elidedText(s, Qt::ElideMiddle, w);
   };

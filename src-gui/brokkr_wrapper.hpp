@@ -112,7 +112,7 @@ class BrokkrWrapper : public QWidget {
   QWidget* ledContainer_ = nullptr;
 
   QList<DeviceSquare*> devSquares_;
-  QList<QLineEdit*> comBoxes;
+  QList<QLabel*> comBoxes;
 
   std::vector<std::uint8_t> slotFailed_;
   std::vector<std::uint8_t> slotActive_;
