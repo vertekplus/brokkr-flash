@@ -310,7 +310,11 @@ brokkr::core::Status OdinCommands::shutdown(ShutdownMode mode, unsigned retries)
   auto _close_cmd = [&](RqtCommandParam p, const char* name) -> brokkr::core::Status {
     auto r = rpc_(RqtCommandType::RQT_CLOSE, p, {}, {}, nullptr, retries);
     if (!r) {
-      spdlog::error("Failed to send shutdown command {}: {}", name, r.error());
+      if (p == RqtCommandParam::RQT_CLOSE_REBOOT) {
+        spdlog::debug("Failed to send shutdown command {}: {}", name, r.error());
+      } else {
+        spdlog::error("Failed to send shutdown command {}: {}", name, r.error());
+      }
     } else {
       spdlog::debug("Sent shutdown command {}", name);
     }
@@ -326,7 +330,7 @@ brokkr::core::Status OdinCommands::shutdown(ShutdownMode mode, unsigned retries)
     if (!st) return st;
     auto reboot_st = close_cmd(RQT_CLOSE_REBOOT);
     if (!reboot_st)
-      spdlog::warn("Reboot command failed (device likely already rebooting): {}", reboot_st.error());
+      spdlog::debug("Reboot command failed (device likely already rebooting): {}", reboot_st.error());
     return {};
   }
 
