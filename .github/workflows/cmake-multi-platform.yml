@@ -548,6 +548,11 @@ jobs:
           path: artifacts
           merge-multiple: true
 
+      - name: Remove debug artifacts from release bundle
+        run: |
+          set -euo pipefail
+          find artifacts -maxdepth 1 -type f -name '*-dbg*' -delete
+
       - name: Generate changelog body
         run: |
           NEW="${{ inputs.new_tag }}"
