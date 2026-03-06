@@ -92,6 +92,7 @@ jobs:
         with:
           version: ${{ env.QT_VERSION }}
           cache: true
+          cache-key-prefix: install-qt-action-${{ github.job }}-${{ matrix.build_type }}
           arch: linux_gcc_64
 
       - name: Configure
@@ -198,6 +199,7 @@ jobs:
         with:
           version: ${{ env.QT_VERSION }}
           cache: true
+          cache-key-prefix: install-qt-action-${{ github.job }}-${{ matrix.build_type }}
           arch: linux_gcc_arm64
 
       - name: Configure
@@ -324,6 +326,7 @@ jobs:
         with:
           version: ${{ env.QT_VERSION }}
           cache: true
+          cache-key-prefix: install-qt-action-${{ github.job }}-${{ matrix.artifact_arch }}-${{ matrix.build_type }}
           host: windows
           arch: ${{ matrix.qt_arch }}
 
@@ -406,6 +409,7 @@ jobs:
         with:
           version: ${{ env.QT_VERSION }}
           cache: true
+          cache-key-prefix: install-qt-action-${{ github.job }}-${{ matrix.build_type }}
           arch: clang_64
 
       - name: Configure
@@ -480,6 +484,7 @@ jobs:
         with:
           version: ${{ env.QT_VERSION }}
           cache: true
+          cache-key-prefix: install-qt-action-${{ github.job }}-${{ matrix.build_type }}
           arch: clang_64
 
       - name: Configure
